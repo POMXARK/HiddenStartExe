@@ -1,4 +1,4 @@
 #pragma once
-extern "C" __declspec(dllexport) void HiddenStart(char*);
+extern "C" __declspec(dllexport) void HiddenStart(const char*);
 
 
