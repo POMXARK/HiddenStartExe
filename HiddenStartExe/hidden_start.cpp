@@ -5,27 +5,27 @@
 #include <codecvt>
 using namespace std;
 
-// C++ обязательно необходимо обьявить функцию перед её использованием
+// C++ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РЅРµРѕР±С…РѕРґРёРјРѕ РѕР±СЊСЏРІРёС‚СЊ С„СѓРЅРєС†РёСЋ РїРµСЂРµРґ РµС‘ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј
 std::wstring stringToWstring(const std::string& t_str);
-void procces_run(int argc, wstring file_mane);
+void procces_run(wstring file_mane);
 
-extern "C" __declspec(dllexport) void HiddenStart(char* prog) {
-    std:wstring file_name = stringToWstring(prog); // Конвертер 
-     (1, file_name); // запуск exe
-} // публичная функция для вызова из вне __declspec(dllexport)
+extern "C" __declspec(dllexport) void HiddenStart(const char* prog) {
+    std:wstring file_name = stringToWstring(prog); // РљРѕРЅРІРµСЂС‚РµСЂ 
+    procces_run(file_name); // Р·Р°РїСѓСЃРє exe
+} // РїСѓР±Р»РёС‡РЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РІС‹Р·РѕРІР° РёР· РІРЅРµ __declspec(dllexport)
 
-// ЗАПУСК EXE ->
+// Р—РђРџРЈРЎРљ EXE ->
 
 
-void procces_run(int argc, wstring file_mane) // запуск процесса скрытно , без остановки основной программы
+void procces_run(wstring file_mane) // Р·Р°РїСѓСЃРє РїСЂРѕС†РµСЃСЃР° СЃРєСЂС‹С‚РЅРѕ , Р±РµР· РѕСЃС‚Р°РЅРѕРІРєРё РѕСЃРЅРѕРІРЅРѕР№ РїСЂРѕРіСЂР°РјРјС‹
 {
 
 
 
-    // преобразовать в std :: wstring
+    // РїСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РІ std :: wstring
    // std::wstring file_mane;
 
-    // получить временный LPWSTR (не совсем безопасно)
+    // РїРѕР»СѓС‡РёС‚СЊ РІСЂРµРјРµРЅРЅС‹Р№ LPWSTR (РЅРµ СЃРѕРІСЃРµРј Р±РµР·РѕРїР°СЃРЅРѕ)
     //wstring file_mane = file_mane;
     //LPWSTR pwst = &file_mane[0];
 
@@ -36,15 +36,10 @@ void procces_run(int argc, wstring file_mane) // запуск процесса скрытно , без о
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
 
-    //   if (argc != 2)
-       //{
-          // printf("Usage: %s [cmdline]\n", file_mane);
-         //  return;
-       //}
 
-       // Запускаем дочерний процесс.
+       // Р—Р°РїСѓСЃРєР°РµРј РґРѕС‡РµСЂРЅРёР№ РїСЂРѕС†РµСЃСЃ.
     if (!CreateProcess(NULL,    // No module name (use command line)
-        &file_mane[0], // Command line // WSTRING TO LPWSTR Строку в тип
+        &file_mane[0], // Command line // WSTRING TO LPWSTR РЎС‚СЂРѕРєСѓ РІ С‚РёРї
         NULL,    // Process handle not inheritable
         NULL,    // Thread handle not inheritable
         FALSE,   // Set handle inheritance to FALSE
@@ -59,19 +54,19 @@ void procces_run(int argc, wstring file_mane) // запуск процесса скрытно , без о
         return;
     }
 
-    // Ждем завершения дочернего процесса.
+    // Р–РґРµРј Р·Р°РІРµСЂС€РµРЅРёСЏ РґРѕС‡РµСЂРЅРµРіРѕ РїСЂРѕС†РµСЃСЃР°.
     //WaitForSingleObject(pi.hProcess, INFINITE);
 
-    // Закрываем дескрипторы процесса и потока.
+    // Р—Р°РєСЂС‹РІР°РµРј РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РїСЂРѕС†РµСЃСЃР° Рё РїРѕС‚РѕРєР°.
     //CloseHandle(pi.hProcess);
     //CloseHandle(pi.hThread);
 }
 
 
-// ЗАПУСК EXE <-
+// Р—РђРџРЈРЎРљ EXE <-
 
 
-// КОНВЕРТЕР ->
+// РљРћРќР’Р•Р РўР•Р  ->
 std::wstring stringToWstring(const std::string& t_str)
 {
     // setup converter
@@ -82,6 +77,6 @@ std::wstring stringToWstring(const std::string& t_str)
     return converter.from_bytes(t_str);
 }
 
-// КОНВЕРТЕР <-
+// РљРћРќР’Р•Р РўР•Р  <-
 
 
