@@ -4,4 +4,4 @@ Dll для скрытного запуска консольного прилож
 Созданна для интеграции в другое приложение на С# или C++ и запуска консольного приложения без окна и перехвата фокуса.
 
 1) Пример на С# https://github.com/POMXARK/ExempleHiddenStartExe
-2) Пример на С++ https://github.com/POMXARK/ExempleHiddenStartExe
+2) Пример на С++ https://github.com/POMXARK/ExempleHiddenStartExeCPlusPlus
